@@ -9,7 +9,7 @@ class league:
         self.zips = []
     
     def __repr__(self):
-        self.printOut = "\nThe " + self.name + "League"
+        self.printOut = "\nThe " + self.name + " League"
         for i in range(self.teamCount):
             length = len(self.teams[i])
             dashes = " " + ("-" * (50-length)) + " "
@@ -21,20 +21,30 @@ class league:
             self.teamCount += 1
             self.teams.append(teamIn)
             self.zips.append(zip)
-            return True
+            return 1
         elif overrideMax:
             self.teamCount += 1
             self.teams.append(teamIn)
             self.zips.append(zip)
-            return True
+            return 0
         else:
-            return False
+            return -1
 
     def getArray(self):
-        outputArray = [["Team Name","Zip"]]
+        outputArray = []
         for i in range(self.teamCount):
-            outputArray.append([self.teams[i],self.zips[i]])
+            zip = self.zips[i]
+            if int(zip) < 60000:
+                zipOut = zip + " IA"
+            else:
+                zipOut = zip + " NE"
+            outputArray.append([self.teams[i],zipOut])
         return outputArray
+
+    def clear(self):
+        self.teams = []
+        self.zips = []
+        self.teamCount = 0
     
     def getName(self):
         return self.name
