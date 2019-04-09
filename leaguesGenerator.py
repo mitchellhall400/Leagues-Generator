@@ -141,14 +141,18 @@ def fillLeague(league,centralBasis,teamsList,allZips):
     output = 1
     delCount = 0
     league.clear()
+
+    #Add any teams if their zip is the basis
     for i in range(len(teamsList)):
         if int(teamsList[i-delCount][1]) == int(centralBasis):
             output = league.addTeam(teamsList[i-delCount][0],teamsList[i-delCount][1],True)
             del teamsList[i-delCount]
             delCount += 1
 
+    #Go down zipDB sorted finding lowest pairs that are teams to basis
     for zipDB in zipCodesDBSortedByDist:
-        if output == 1:
+        if output == 1:     #If league isn't full
+            #If the first zip is the basis
             if zipDB[0] == centralBasis:
                 delCount = 0
                 for i in range(len(teamsList)):
@@ -156,14 +160,18 @@ def fillLeague(league,centralBasis,teamsList,allZips):
                         output = league.addTeam(teamsList[i-delCount][0],teamsList[i-delCount][1],True)
                         del teamsList[i-delCount]
                         delCount += 1
+                delCount = 0
+            #If the second zip is basis
             if zipDB[1] == centralBasis:
                 delCount = 0
                 for i in range(len(teamsList)):
                     if teamsList[i-delCount][1] == zipDB[0]:
                         output = league.addTeam(teamsList[i-delCount][0],teamsList[i-delCount][1],True)
                         del teamsList[i-delCount]
-                        delCount += 1
+                        delCount += 1    
+                delCount = 0
     zipsAssigned = league.getZips()
+    zipsAssigned.append(centralBasis)
     delCount = 0
     for i in range(len(allZips)):
         if allZips[i-delCount] in zipsAssigned:
@@ -182,6 +190,7 @@ teamsCopy = teams[:]
 delCount = 0
 bestScore = 1000000000.0
 score = 0
+percent = 0
 bestLeagues = []
 
 tempArray = []
@@ -273,90 +282,89 @@ for zipOne in allZips:
                                                                     writeLeaguesCSV(leagues)
                                                                     print(teamsCopy)
                                                                     print(score)
+                                                                percent += 1
+                                                                print(percent)
 
                                                                 #Reset
-                                                                teamsCopy = teamsCopyReset
-                                                                allZips = allZipsReset
+                                                                teamsCopy = teamsCopyReset[:]
+                                                                allZips = allZipsReset[:]
                                                                 score = 0
                                                                 leagues[15].clear()
                                                             #Reset
-                                                            teamsCopy = teamsCopyReset
-                                                            allZips = allZipsReset
+                                                            teamsCopy = teamsCopyReset[:]
+                                                            allZips = allZipsReset[:]
                                                             score = 0
                                                             leagues[14].clear()
                                                         #Reset
-                                                        teamsCopy = teamsCopyReset
-                                                        allZips = allZipsReset
+                                                        teamsCopy = teamsCopyReset[:]
+                                                        allZips = allZipsReset[:]
                                                         score = 0
                                                         leagues[13].clear()
                                                     #Reset
-                                                    teamsCopy = teamsCopyReset
-                                                    allZips = allZipsReset
+                                                    teamsCopy = teamsCopyReset[:]
+                                                    allZips = allZipsReset[:]
                                                     score = 0
                                                     leagues[12].clear()
                                                 #Reset
-                                                teamsCopy = teamsCopyReset
-                                                allZips = allZipsReset
+                                                teamsCopy = teamsCopyReset[:]
+                                                allZips = allZipsReset[:]
                                                 score = 0
                                                 leagues[11].clear()
                                             #Reset
-                                            teamsCopy = teamsCopyReset
-                                            allZips = allZipsReset
+                                            teamsCopy = teamsCopyReset[:]
+                                            allZips = allZipsReset[:]
                                             score = 0
                                             leagues[10].clear()
                                         #Reset
-                                        teamsCopy = teamsCopyReset
-                                        allZips = allZipsReset
+                                        teamsCopy = teamsCopyReset[:]
+                                        allZips = allZipsReset[:]
                                         score = 0
                                         leagues[9].clear()
                                     #Reset
-                                    teamsCopy = teamsCopyReset
-                                    allZips = allZipsReset
+                                    teamsCopy = teamsCopyReset[:]
+                                    allZips = allZipsReset[:]
                                     score = 0
                                     leagues[8].clear()
                                 #Reset
-                                teamsCopy = teamsCopyReset
-                                allZips = allZipsReset
+                                teamsCopy = teamsCopyReset[:]
+                                allZips = allZipsReset[:]
                                 score = 0
                                 leagues[7].clear()
                             #Reset
-                            teamsCopy = teamsCopyReset
-                            allZips = allZipsReset
+                            teamsCopy = teamsCopyReset[:]
+                            allZips = allZipsReset[:]
                             score = 0
                             leagues[6].clear()
                         #Reset
-                        teamsCopy = teamsCopyReset
-                        allZips = allZipsReset
+                        teamsCopy = teamsCopyReset[:]
+                        allZips = allZipsReset[:]
                         score = 0
                         leagues[5].clear()
                     #Reset
-                    teamsCopy = teamsCopyReset
-                    allZips = allZipsReset
+                    teamsCopy = teamsCopyReset[:]
+                    allZips = allZipsReset[:]
                     score = 0
                     leagues[4].clear()
                 #Reset
-                teamsCopy = teamsCopyReset
-                allZips = allZipsReset
+                teamsCopy = teamsCopyReset[:]
+                allZips = allZipsReset[:]
                 score = 0
                 leagues[3].clear()
             #Reset
-            teamsCopy = teamsCopyReset
-            allZips = allZipsReset
+            teamsCopy = teamsCopyReset[:]
+            allZips = allZipsReset[:]
             score = 0
             leagues[2].clear()
         #Reset
-        teamsCopy = teamsCopyReset
-        allZips = allZipsReset
+        teamsCopy = teamsCopyReset[:]
+        allZips = allZipsReset[:]
         score = 0
         leagues[1].clear()
     #Reset
-    teamsCopy = teamsCopyReset
-    allZips = allZipsReset
+    teamsCopy = teamsCopyReset[:]
+    allZips = allZipsReset[:]
     score = 0
     leagues[0].clear()
                                                                 
-
-                                                                                                                            
-
 print(bestLeagues)
 writeLeaguesCSV(bestLeagues)
